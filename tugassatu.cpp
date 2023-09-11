@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
 const int MAX_DATA = 10;
 
 struct Data {
