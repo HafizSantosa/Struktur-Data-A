@@ -1,8 +1,11 @@
 #include <iostream>
 #include <string>
+<<<<<<< HEAD
 
 using namespace std;
 
+=======
+>>>>>>> c184b534db2a226834ad87606b8fac3694d3391c
 const int MAX_DATA = 10;
 
 struct Data {
