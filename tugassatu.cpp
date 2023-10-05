@@ -1,175 +1,204 @@
 #include <iostream>
-#include <vector>
 #include <string>
+
+using namespace std;
 
 const int MAX_DATA = 10;
 
 struct Data {
     int id;
-    std::string nama;
-    std::string Data1;
-    std::string Data2;
-    std::string Data3;
-    std::string Data4;
-    std::string Data5;
-    std::string Data6;
-    std::string Data7;
-    std::string Data8;
-    std::string Data9;
-    std::string Data10;
+    string nama;
+    string Data1;
+    int Data2;
+    string Data3;
+    string Data4;
+    string Data5;    
+    string Data6;
+    string Data7;
+    string Data8;
+    string Data9;
+    string Data10;
 };
 
-void tampilkanData(const std::vector<Data>& data) {
-    if (data.empty()) {
-        std::cout << "Tidak ada data yang tersimpan.\n";
+void tampilkanData(const Data data[], int size) {
+    if (size == 0) {
+        cout << "Tidak ada data yang tersimpan.\n";
         return;
     }
 
-    std::cout << "Data yang tersimpan:\n";
-    for (const Data& d : data) {
-        std::cout << "ID: " << d.id << "\n Nama: " << d.nama << "\n Data 1: " << d.Data1 << "\n Umur: " << d.Data2
-                  << "\n Alamat: " << d.Data3 << "\n Nomor KTP: " << d.Data4 << "\n Nomor Telepon: " << d.Data5
-                  << "\n Pekerjaan: " << d.Data6 << "\n Status: " << d.Data7 << "\n Golongan Darah: " << d.Data8
-                  << "\n Agama: " << d.Data9 << "\n Kewarganegaraan: " << d.Data10 << std::endl;
+    cout << "Data yang tersimpan:\n";
+    for (int i = 0; i < size; ++i) {
+        cout << "ID: " << data[i].id << "\n Nama: " << data[i].nama << "\n Jenis Kelamin: " << data[i].Data1
+             << "\n Umur: " << data[i].Data2 << "\n Alamat: " << data[i].Data3 << "\n Nomor KTP: " << data[i].Data4
+             << "\n Nomor Telepon: " << data[i].Data5 << "\n Pekerjaan: " << data[i].Data6 << "\n Status: " << data[i].Data7
+             << "\n Golongan Darah: " << data[i].Data8 << "\n Agama: " << data[i].Data9 << "\n Kewarganegaraan: " << data[i].Data10 << endl;
     }
 }
 
-void tambahData(std::vector<Data>& data) {
-    if (data.size() >= MAX_DATA) {
-        std::cout << "Database sudah penuh. Tidak dapat menambahkan data.\n";
+void tambahData(Data data[], int& size) {
+    if (size >= MAX_DATA) {
+        cout << "Database sudah penuh. Tidak dapat menambahkan data.\n";
         return;
     }
 
     Data newData;
-    std::cout << "Masukkan ID: ";
-    std::cin >> newData.id;
-    std::cin.ignore();
-    std::cout << "Masukkan Nama: ";
-    std::getline(std::cin, newData.nama);
-    std::cout << "Masukkan Jenis Kelamin: ";
-    std::getline(std::cin, newData.Data1);
-    std::cout << "Masukkan Umur: ";
-    std::getline(std::cin, newData.Data2);
-    std::cout << "Masukkan Alamat: ";
-    std::getline(std::cin, newData.Data3);
-    std::cout << "Masukkan Nomor KTP: ";
-    std::getline(std::cin, newData.Data4);
-    std::cout << "Masukkan Nomor Telepon: ";
-    std::getline(std::cin, newData.Data5);
-    std::cout << "Masukkan Pekerjaan: ";
-    std::getline(std::cin, newData.Data6);
-    std::cout << "Masukkan Status: ";
-    std::getline(std::cin, newData.Data7);
-    std::cout << "Masukkan Golongan Darah: ";
-    std::getline(std::cin, newData.Data8);
-    std::cout << "Masukkan Agama: ";
-    std::getline(std::cin, newData.Data9);
-    std::cout << "Masukkan Kewarganegaraan: ";
-    std::getline(std::cin, newData.Data10);
+    cout << "Masukkan ID: ";
+    cin >> newData.id;
+    cin.ignore();
 
-    data.push_back(newData);
-    std::cout << "Data berhasil ditambahkan.\n";
+    cout << "Masukkan Nama: ";
+    getline(cin, newData.nama);
+
+    cout << "Masukkan Jenis Kelamin: ";
+    getline(cin, newData.Data1);
+
+    cout << "Masukkan Umur: ";
+    cin >> newData.Data2;
+    cin.ignore();
+
+    cout << "Masukkan Alamat: ";
+    getline(cin, newData.Data3);
+
+    cout << "Masukkan Nomor KTP: ";
+    cin >> newData.Data4;
+    cin.ignore();
+
+    cout << "Masukkan Nomor Telepon: ";
+    getline(cin, newData.Data5);
+
+    cout << "Masukkan Pekerjaan: ";
+    getline(cin, newData.Data6);
+
+    cout << "Masukkan Status: ";
+    getline(cin, newData.Data7);
+
+    cout << "Masukkan Golongan Darah: ";
+    getline(cin, newData.Data8);
+
+    cout << "Masukkan Agama: ";
+    getline(cin, newData.Data9);
+
+    cout << "Masukkan Kewarganegaraan: ";
+    getline(cin, newData.Data10);
+
+    data[size++] = newData;
+    cout << "Data berhasil ditambahkan.\n";
 }
 
-
-void hapusData(std::vector<Data>& data, int id) {
-    for (auto it = data.begin(); it != data.end(); ++it) {
-        if (it->id == id) {
-            data.erase(it);
-            std::cout << "Data dengan ID " << id << " berhasil dihapus.\n";
+void hapusData(Data data[], int& size, int id) {
+    for (int i = 0; i < size; ++i) {
+        if (data[i].id == id) {
+            for (int j = i; j < size - 1; ++j) {
+                data[j] = data[j + 1];
+            }
+            --size;
+            cout << "Data dengan ID " << id << " berhasil dihapus.\n";
             return;
         }
     }
-    std::cout << "Data dengan ID " << id << " tidak ditemukan.\n";
+    cout << "Data dengan ID " << id << " tidak ditemukan.\n";
 }
 
-void ubahData(std::vector<Data>& data, int id) {
-    for (Data& d : data) {
-        if (d.id == id) {
-            std::cin.ignore();
-            std::cout << "Masukkan Nama yang baru: ";
-            std::getline(std::cin, d.nama);
-            std::cout << "Masukkan Jenis Kelamin yang baru: ";
-            std::getline(std::cin, d.Data1);
-            std::cout << "Masukkan Umur yang baru: ";
-            std::getline(std::cin, d.Data2);
-            std::cout << "Masukkan Alamat yang baru: ";
-            std::getline(std::cin, d.Data3);
-            std::cout << "Masukkan Nomor KTP yang baru: ";
-            std::getline(std::cin, d.Data4);
-            std::cout << "Masukkan Nomor Telepon yang baru: ";
-            std::getline(std::cin, d.Data5);
-            std::cout << "Masukkan Pekerjaan yang baru: ";
-            std::getline(std::cin, d.Data6);
-            std::cout << "Masukkan Status yang baru: ";
-            std::getline(std::cin, d.Data7);
-            std::cout << "Masukkan Golongan Darah yang baru: ";
-            std::getline(std::cin, d.Data8);
-            std::cout << "Masukkan Agama yang baru: ";
-            std::getline(std::cin, d.Data9);
-            std::cout << "Masukkan Kewarganegaraan yang baru: ";
-            std::getline(std::cin, d.Data10);
-            std::cout << "Data berhasil diubah.\n";
+void ubahData(Data data[], int size, int id) {
+    for (int i = 0; i < size; ++i) {
+        if (data[i].id == id) {
+            cout << "Masukkan Nama yang baru: ";
+            getline(cin, data[i].nama);
+            cin.ignore();
+
+            cout << "Masukkan Jenis Kelamin yang baru: ";
+            getline(cin, data[i].Data1);
+
+            cout << "Masukkan Umur yang baru: ";
+            cin >> data[i].Data2;
+            cin.ignore();
+
+            cout << "Masukkan Alamat yang baru: ";
+            getline(cin, data[i].Data3);
+
+            cout << "Masukkan Nomor KTP yang baru: ";
+            cin >> data[i].Data4;
+            cin.ignore();
+
+            cout << "Masukkan Nomor Telepon yang baru: ";
+            getline(cin, data[i].Data5);
+
+            cout << "Masukkan Pekerjaan yang baru: ";
+            getline(cin, data[i].Data6);
+
+            cout << "Masukkan Status yang baru: ";
+            getline(cin, data[i].Data7);
+
+            cout << "Masukkan Golongan Darah yang baru: ";
+            getline(cin, data[i].Data8);
+
+            cout << "Masukkan Agama yang baru: ";
+            getline(cin, data[i].Data9);
+
+            cout << "Masukkan Kewarganegaraan yang baru: ";
+            getline(cin, data[i].Data10);
+
+            cout << "Data berhasil diubah.\n";
             return;
         }
     }
-    std::cout << "Data dengan ID " << id << " tidak ditemukan.\n";
+    cout << "Data dengan ID " << id << " tidak ditemukan.\n";
 }
 
-
-void cariData(const std::vector<Data>& data, int id) {
-    for (const Data& d : data) {
-        if (d.id == id) {
-            std::cout << "Data ditemukan:\n";
-            std::cout << "ID: " << d.id << "\n Nama: " << d.nama << "\n Jenis Kelamin: " << d.Data1 << "\n Umur: " << d.Data2
-                      << "\n Alamat: " << d.Data3 << "\n Nomor KTP: " << d.Data4 << "\n Nomor Telepon: " << d.Data5
-                      << "\n Pekerjaan: " << d.Data6 << "\n Status: " << d.Data7 << "\n Golongan Darah: " << d.Data8
-                      << "\n Agama: " << d.Data9 << "\n Kewarganegaraan: " << d.Data10 << std::endl;
+void cariData(const Data data[], int size, int id) {
+    for (int i = 0; i < size; ++i) {
+        if (data[i].id == id) {
+            cout << "Data ditemukan:\n";
+            cout << "ID: " << data[i].id << "\n Nama: " << data[i].nama << "\n Jenis Kelamin: " << data[i].Data1
+                 << "\n Umur: " << data[i].Data2 << "\n Alamat: " << data[i].Data3 << "\n Nomor KTP: " << data[i].Data4
+                 << "\n Nomor Telepon: " << data[i].Data5 << "\n Pekerjaan: " << data[i].Data6 << "\n Status: " << data[i].Data7
+                 << "\n Golongan Darah: " << data[i].Data8 << "\n Agama: " << data[i].Data9 << "\n Kewarganegaraan: " << data[i].Data10 << endl;
             return;
         }
     }
-    std::cout << "Data dengan ID " << id << " tidak ditemukan.\n";
+    cout << "Data dengan ID " << id << " tidak ditemukan.\n";
 }
 
 int main() {
-    std::vector<Data> database;
+    Data database[MAX_DATA];
+    int size = 0;
 
     while (true) {
-        std::cout << "\nPilih operasi yang ingin Anda lakukan:\n";
-        std::cout << "1. Tampilkan Data\n";
-        std::cout << "2. Tambah Data\n";
-        std::cout << "3. Hapus Data\n";
-        std::cout << "4. Ubah Data\n";
-        std::cout << "5. Cari Data\n";
-        std::cout << "6. Keluar\n";
+        cout << "\nPilih operasi yang ingin Anda lakukan:\n";
+        cout << "1. Tampilkan Data\n";
+        cout << "2. Tambah Data\n";
+        cout << "3. Hapus Data\n";
+        cout << "4. Ubah Data\n";
+        cout << "5. Cari Data\n";
+        cout << "6. Keluar\n";
 
         int pilihan;
-        std::cin >> pilihan;
+        cin >> pilihan;
 
         if (pilihan == 1) {
-            tampilkanData(database);
+            tampilkanData(database, size);
         } else if (pilihan == 2) {
-            tambahData(database);
+            tambahData(database, size);
         } else if (pilihan == 3) {
             int id;
-            std::cout << "Masukkan ID yang ingin dihapus: ";
-            std::cin >> id;
-            hapusData(database, id);
+            cout << "Masukkan ID yang ingin dihapus: ";
+            cin >> id;
+            hapusData(database, size, id);
         } else if (pilihan == 4) {
             int id;
-            std::cout << "Masukkan ID yang ingin diubah: ";
-            std::cin >> id;
-            ubahData(database, id);
+            cout << "Masukkan ID yang ingin diubah: ";
+            cin >> id;
+            ubahData(database, size, id);
         } else if (pilihan == 5) {
             int id;
-            std::cout << "Masukkan ID yang ingin dicari: ";
-            std::cin >> id;
-            cariData(database, id);
+            cout << "Masukkan ID yang ingin dicari: ";
+            cin >> id;
+            cariData(database, size, id);
         } else if (pilihan == 6) {
-            std::cout << "Program selesai.\n";
+            cout << "Program selesai.\n";
             break;
         } else {
-            std::cout << "Pilihan tidak valid. Silakan coba lagi.\n";
+            cout << "Pilihan tidak valid. Silakan coba lagi.\n";
         }
     }
 
